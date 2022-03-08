@@ -1,0 +1,5 @@
+static
+__pycache__
+migrations
+portfolio/__pycache__
+portfolio/settings.py

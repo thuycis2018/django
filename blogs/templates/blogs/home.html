@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+    {% load static %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <title>Eleventy and Netlify</title>
+        <link href="{% static 'style.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        
+        <div class="container py-4">
+            <header>
+    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" stroke-width="2" class="me-2 bi bi-brightness-alt-high" viewBox="0 0 16 16">
+      <path d="M8 3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 3zm8 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zm-13.5.5a.5.5 0 0 0 0-1h-2a.5.5 0 0 0 0 1h2zm11.157-6.157a.5.5 0 0 1 0 .707l-1.414 1.414a.5.5 0 1 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm-9.9 2.121a.5.5 0 0 0 .707-.707L3.05 5.343a.5.5 0 1 0-.707.707l1.414 1.414zM8 7a4 4 0 0 0-4 4 .5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5 4 4 0 0 0-4-4zm0 1a3 3 0 0 1 2.959 2.5H5.04A3 3 0 0 1 8 8z"/></svg>
+      <span class="fs-1 jl-text">Julia Le</span>
+      </a>
+
+      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+        <a class="me-3 py-2 text-dark text-decoration-none" href="/">Home</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="/blog">Blog</a>
+      </nav>
+    </div>
+  </header>
+
+           <main>  
+
+<div class="p-5 mb-4 bg-light rounded-10 shadow">
+    <div class="container-fluid py-5">        
+            <div class="col-md-8 fs-4">
+                <h1 class="display-5 fw-bold jl-text-big">Django</h1>
+                This site is built using Django and connected to PostgeSQL.
+            </div>
+        <a href="https://github.com/thuycis2018/eleventy-netlify-v2" title="GitHub Project" class="mt-5 btn btn-outline-secondary btn-lg" type="button">GitHub Project</a>
+        <a href="/blog" title="Blog" class="mt-5 btn btn-outline-secondary btn-lg" type="button">Read My Blog</a>
+    </div>
+</div> </main>
+            <footer class="pt-3 mt-4 text-muted border-top">
+   Copyrights &copy; 2022 Julia Le
+</footer>
+       </div>
+        
+    </body>
+</html>
