@@ -1,5 +1,5 @@
-{% extends 'base.html' %}
-{% block content %}
+  {% extends 'blogs\base.html' %}
+  {% block content %}
 
   <div class="p-5 mb-4 bg-light rounded-10 shadow">
       <div class="container-fluid py-5">
@@ -8,14 +8,12 @@
                   <h1 class="display-5 fw-bold jl-text-big">Read Set Go!</h1>
                   <div class="col-md-12 fs-4 jl-text jl-p">Supercharging my brain with a lot of information!</div>
               </div>
-              <div class="col-md-5 col-sm-12">
-                  <img class="jl-main-img rounded-circle" src="{% static 'yes.png' %}" alt="Learning" />
-              </div>
+              
           </div>
       </div>
   </div>
   <div class="row align-items-md-stretch">
-      {% for blog in blogs.all  %}
+    {% for blog in blogs.all  %}
       <div class="col-md-12">
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow h-md-250 position-relative rounded-10">
           <div class="col p-4 d-flex flex-column position-static">
@@ -26,7 +24,7 @@
           </div>
         </div>
       </div>
-      {% endfor %}
-  </div>
+    {% endfor %}
+</div>
 
-{% endblock %}
+  {% endblock %}
