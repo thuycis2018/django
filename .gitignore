@@ -1,0 +1,22 @@
+# Ignore Python bytecode files
+*.pyc
+__pycache__/
+
+# Ignore Django migration files
+newproject/products/migrations/
+!newproject/products/migrations/__init__.py
+
+# Ignore SQLite database file
+db.sqlite3
+
+# Ignore virtual environment directory
+venv/
+env/
+
+# Ignore IDE/editor configuration files
+.vscode/
+.idea/
+*.swp
+
+# Ignore other sensitive files
+.env
