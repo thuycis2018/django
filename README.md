@@ -1,8 +1,8 @@
-# django2024 - Sample REST APIs
+# Sample REST APIs
 
 ## Using Docker container
 
-Very first time, build Docker image.
+Build Docker image and run container
  ```bash
 docker-compose up --build
 ```
@@ -53,8 +53,8 @@ pylint products/
 ```
 
 ## APIs
-/api/products/
-/api/products/1/
-/api/products/bulk-create/
-/api/products/bulk-update/
-/api/products/bulk-delete/
+1. GET /api/products/
+2. GET /api/products/1/
+3. POST /api/products/bulk-create/
+4. PUT /api/products/bulk-update/
+5. DELETE /api/products/bulk-delete/
