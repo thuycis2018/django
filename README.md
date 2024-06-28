@@ -6,6 +6,8 @@ docker-compose down -v
 docker-compose up --build
 ```
 
+Visit http://localhost:8000/swagger/
+
 ## Get Started Without Using Docker Container
 1. Initial requirements: install Django Rest framework and Swagger documentation
  ```python

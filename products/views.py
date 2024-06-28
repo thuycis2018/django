@@ -11,6 +11,9 @@ Methods:
 """
 # pylint: disable=E1101
 from rest_framework import generics, pagination
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from .models import Product
@@ -80,3 +83,105 @@ class ProductListView(generics.ListAPIView):
         queryset = queryset.order_by('sku')
 
         return queryset
+
+
+class ProductBulkCreateView(APIView):
+    """
+    API view to create multiple products.
+    """
+    @swagger_auto_schema(
+        operation_description="Create multiple products",
+        request_body=ProductSerializer(many=True),
+        responses={
+            status.HTTP_201_CREATED: openapi.Response(
+                description="Products created successfully",
+                schema=ProductSerializer(many=True)
+            ),
+            status.HTTP_400_BAD_REQUEST: "Invalid input"
+        }
+    )
+    def post(self, request, *args, **kwargs):
+        serializer = ProductSerializer(data=request.data, many=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProductBulkUpdateView(APIView):
+    """
+    API view to update multiple products.
+    """
+    @swagger_auto_schema(
+        operation_description="Update multiple products",
+        request_body=ProductSerializer(many=True),
+        responses={
+            status.HTTP_200_OK: openapi.Response(
+                description="Products updated successfully",
+                schema=ProductSerializer(many=True)
+            ),
+            status.HTTP_400_BAD_REQUEST: "Invalid input"
+        }
+    )
+    def put(self, request, *args, **kwargs):
+        product_data = request.data
+        errors = []
+        updated_products = []
+
+        for product in product_data:
+            try:
+                product_instance = Product.objects.get(id=product['id'])
+            except Product.DoesNotExist:
+                errors.append(f"Product with id {product['id']} does not exist.")
+                continue
+
+            serializer = ProductSerializer(product_instance, data=product, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                updated_products.append(serializer.data)
+            else:
+                errors.append(serializer.errors)
+
+        if errors:
+            return Response({"errors": errors}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(updated_products, status=status.HTTP_200_OK)
+
+
+class ProductBulkDeleteView(APIView):
+    """
+    API view to delete multiple products.
+    """
+    @swagger_auto_schema(
+        operation_description="Delete multiple products",
+        request_body=ProductSerializer(many=True),
+        responses={
+            status.HTTP_204_NO_CONTENT: "Products deleted successfully",
+            status.HTTP_400_BAD_REQUEST: "Invalid input"
+        }
+    )
+    def delete(self, request, *args, **kwargs):
+        ids = [item['id'] for item in request.data]
+        errors = []
+
+        for product_id in ids:
+            try:
+                product = Product.objects.get(id=product_id)
+                product.delete()
+            except Product.DoesNotExist:
+                errors.append(f"Product with id {product_id} does not exist.")
+
+        if errors:
+            return Response({"errors": errors}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ProductDetailView(generics.RetrieveAPIView):
+    """
+    API view to get a single product.
+    """
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    @swagger_auto_schema(operation_description="Retrieve a single product by its ID")
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
