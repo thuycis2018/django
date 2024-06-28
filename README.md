@@ -1,7 +1,12 @@
 # django2024
 
-## Get Started
+## Get Started Using Docker Container
+ ```bash
+docker-compose down -v
+docker-compose up --build
+```
 
+## Get Started Without Using Docker Container
 1. Initial requirements: install Django Rest framework and Swagger documentation
  ```python
 pip install djangorestframework
