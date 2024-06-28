@@ -1,5 +1,6 @@
 import chardet
 
+
 def convert_to_utf8(file_path):
     # Detect encoding
     with open(file_path, 'rb') as f:
@@ -17,6 +18,7 @@ def convert_to_utf8(file_path):
         f.write(content)
     print(f"Converted {file_path} to UTF-8 encoding")
 
+
 def remove_bom(file_path):
     # Read content with utf-8-sig to remove BOM if present
     with open(file_path, 'r', encoding='utf-8-sig') as f:
@@ -26,6 +28,7 @@ def remove_bom(file_path):
     with open(file_path, 'w', encoding='utf-8') as f:
         f.write(content)
     print(f"Removed BOM from {file_path} if present")
+
 
 file_path = '.pylintrc'
 convert_to_utf8(file_path)
