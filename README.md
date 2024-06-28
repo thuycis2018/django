@@ -1,12 +1,19 @@
-# django2024
+# django2024 - Sample REST APIs
 
 ## Get Started Using Docker Container
+
+Very first time, build Docker image.
  ```bash
-docker-compose down -v
 docker-compose up --build
 ```
 
-Documentation: http://localhost:8000/swagger/
+When changing codes, don't need to build Docker image again. If changing models, need to remove volume as well.
+ ```bash
+docker-compose down -v
+docker-compose up
+```
+
+For documentation, visit: http://localhost:8000/swagger/
 
 ## Get Started Without Using Docker Container
 1. Initial requirements: install Django Rest framework and Swagger documentation
@@ -36,4 +43,10 @@ python manage.py populate_products
 5. Run tests
  ```python
 python manage.py test products
+```
+
+6. Code linting
+ ```python
+flake8
+pylint products/
 ```

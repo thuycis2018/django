@@ -88,6 +88,12 @@ class ProductListView(generics.ListAPIView):
 class ProductBulkCreateView(APIView):
     """
     API view to create multiple products.
+    Payload:
+    [ 
+        { "name": "Product AA", "sku": "SKU0010", "price": "10.99", "category": 1 }, 
+        { "name": "Product BB", "sku": "SKU0020", "price": "19.99", "category": 2 }, 
+        { "name": "Product CC", "sku": "SKU0030", "price": "15.49", "category": 1 } 
+    ]
     """
     @swagger_auto_schema(
         operation_description="Create multiple products",

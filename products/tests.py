@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework.test import APIClient
 from rest_framework import status
-from .models import Product
+from .models import Product, Category
 
 
 class ProductTests(TestCase):
@@ -13,17 +13,26 @@ class ProductTests(TestCase):
     """
     def setUp(self):
         """ Create test data """
-        self.product1 = Product.objects.create(name='Product A', sku='SKU001', price=10.99)
-        self.product2 = Product.objects.create(name='Product B', sku='SKU002', price=19.99)
-        self.product3 = Product.objects.create(name='Product C', sku='SKU003', price=15.49)
+        # Create categories
+        self.category1 = Category.objects.create(name='Healthcare')
+        self.category2 = Category.objects.create(name='Education')
+        self.category3 = Category.objects.create(name='Communication')
+
+        # Initial setup for creating some test data
+        self.product1 = Product.objects.create(name='Product A', sku='SKU001', price=10.99, category=self.category1)
+        self.product2 = Product.objects.create(name='Product B', sku='SKU002', price=19.99, category=self.category2)
+        self.product3 = Product.objects.create(name='Product C', sku='SKU003', price=15.49, category=self.category3)
+
         self.bulk_product_data = [
-            {"name": "Product D", "sku": "SKU004", "price": 22.99},
-            {"name": "Product E", "sku": "SKU005", "price": 24.99},
+            {"name": "Product D", "sku": "SKU004", "price": 22.99, "category": self.category1.id},
+            {"name": "Product E", "sku": "SKU005", "price": 24.99, "category": self.category2.id},
         ]
 
         self.bulk_update_data = [
-            {"id": self.product1.id, "name": "Bulk Updated Product A", "sku": "SKU001", "price": 13.99},
-            {"id": self.product2.id, "name": "Bulk Updated Product B", "sku": "SKU002", "price": 20.99},
+            {"id": self.product1.id, "name": "Bulk Updated Product A", "sku": "SKU001",
+             "price": 13.99, "category": self.category1.id},
+            {"id": self.product2.id, "name": "Bulk Updated Product B", "sku": "SKU002",
+             "price": 20.99, "category": self.category2.id},
         ]
 
         self.bulk_delete_data = [
@@ -68,10 +77,11 @@ class ProductTests(TestCase):
         skus = [product['sku'] for product in response.data['results']]
         self.assertEqual(skus, ['SKU001', 'SKU002', 'SKU003'])  # Assuming alphabetical order
 
-    def test_create_product(self):
-        """ Test creating products """
+    def test_bulk_create_products(self):
+        """ Test creating multiple products """
         url = reverse('product-bulk-create')
         response = self.client.post(url, self.bulk_product_data, content_type='application/json')
+        print(response)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Product.objects.count(), 5)
         self.assertEqual(Product.objects.get(sku='SKU004').name, 'Product D')

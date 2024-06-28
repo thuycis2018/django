@@ -1,11 +1,19 @@
-""" products app serializers """
+""" serializers """
+# pylint: disable=C0115
 from rest_framework import serializers
-from .models import Product
+from .models import Product, Category
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['id', 'name']
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    """ product serializer """
+    # payload has category = integer
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
+
     class Meta:
-        """ product serializer meta """
         model = Product
-        fields = ['name', 'sku', 'price']
+        fields = ['id', 'name', 'sku', 'price', 'category']
