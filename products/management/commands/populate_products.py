@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from products.models import Product
 
+
 class Command(BaseCommand):
     help = 'Populate products table with initial data'
 
@@ -14,9 +15,7 @@ class Command(BaseCommand):
             {'name': 'Product 10', 'sku': 'SKU0010', 'price': 30.00},
             {'name': 'Product 11', 'sku': 'SKU0011', 'price': 27.00},
             {'name': 'Product 12', 'sku': 'SKU0012', 'price': 47.00},
-            # Add more products as needed
-        ]
-        
+            ]
         for product_data in products:
             Product.objects.create(**product_data)
 
