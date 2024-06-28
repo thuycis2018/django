@@ -1,4 +1,6 @@
 from rest_framework import generics, pagination
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 from .models import Product
 from .serializers import ProductSerializer
 
@@ -12,6 +14,20 @@ class ProductListView(generics.ListAPIView):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
     pagination_class = ProductPagination  # Use custom pagination class
+
+    @swagger_auto_schema(
+        operation_description="Retrieve a list of products with optional filters and pagination.",
+        manual_parameters=[
+            openapi.Parameter('sku', openapi.IN_QUERY, description="Filter by SKU", type=openapi.TYPE_STRING),
+            openapi.Parameter('min_price', openapi.IN_QUERY, description="Minimum price", type=openapi.TYPE_NUMBER),
+            openapi.Parameter('max_price', openapi.IN_QUERY, description="Maximum price", type=openapi.TYPE_NUMBER),
+            openapi.Parameter('page', openapi.IN_QUERY, description="Page number", type=openapi.TYPE_INTEGER),
+            openapi.Parameter('page_size', openapi.IN_QUERY, description="Number of items per page", type=openapi.TYPE_INTEGER),
+        ],
+        responses={200: ProductSerializer(many=True)}
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         queryset = Product.objects.all()

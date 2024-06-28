@@ -2,20 +2,31 @@
 
 ## Get Started
 
-1. Run dev server
+1. Initial requirements: install Django Rest framework and Swagger documentation
+ ```python
+pip install djangorestframework
+pip install setuptools
+pip install drf-yasg
+```
+
+2. Run migration
+ ```python
+python manage.py makemigrations
+python manage.py migrate
+```
+
+3. Run dev server
  ```python
 python manage.py runserver
 ```
 
 
-2. Populate data
-
+4. Populate data
  ```python
 python manage.py populate_products
 ```
 
-3. Run tests
-
+5. Run tests
  ```python
 python manage.py test products
 ```
