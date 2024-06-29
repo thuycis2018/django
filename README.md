@@ -54,7 +54,10 @@ pylint products/
 
 ## APIs
 1. GET /api/products/
-2. GET /api/products/1/
-3. POST /api/products/bulk-create/
+2. POST /api/products/bulk-create/
+3. DELETE /api/products/bulk-delete/
 4. PUT /api/products/bulk-update/
-5. DELETE /api/products/bulk-delete/
+5. GET /api/products/{product-id}/
+
+![APIs](https://julia.cosmaservices.com/wp-content/uploads/2024/06/screenshot_product_list-1.png)
+  
