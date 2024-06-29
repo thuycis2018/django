@@ -14,26 +14,34 @@ services:
     depends_on:
       - db
     networks:
-      - mynetwork
+      - backend
 
   db:
-    image: postgres:13
+    image: postgres:16
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
-      # - ./sql-scripts:/docker-entrypoint-initdb.d  # Mount SQL scripts
+      - ../pgAdmin/postgres_data:/var/lib/postgresql/data/
     ports:
       - "5432:5432"
-
     networks:
-      - mynetwork
+      - backend
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    volumes:
+      - ../pgAdmin/pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    networks:
+      - backend
 
 networks:
-  mynetwork:
-    driver: bridge
-
-volumes:
-  postgres_data:
+  backend:

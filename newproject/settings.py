@@ -10,7 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
+from dotenv import load_dotenv
 from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -76,6 +79,10 @@ WSGI_APPLICATION = 'newproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# Load environment variables from .env file
+env_path = Path('.') / '.env'
+load_dotenv(dotenv_path=env_path)
+
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
@@ -83,11 +90,14 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'products_db',
-        'USER': 'postgres_user',
-        'PASSWORD': 'postgres_password',
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
         'HOST': 'db',  # The name of the service in docker-compose.yml
         'PORT': '5432',
+        'OPTIONS': {
+            'options': '-c search_path=rest_api,public'
+        },
     }
 }
 

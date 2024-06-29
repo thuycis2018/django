@@ -15,8 +15,5 @@ COPY requirements.txt /code/
 RUN pip install --upgrade pip \
     && pip install -r requirements.txt
 
-# Install psycopg2
-RUN pip install psycopg2==2.9.1
-
 # Copy the rest of the application code to the working directory
 COPY . /code/
