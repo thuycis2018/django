@@ -3,12 +3,12 @@
 ## Using Docker container
 
 Build Docker image and run container
- ```bash
+ ```sh
 docker-compose up --build
 ```
 
 When changing codes, don't need to build Docker image again. If changing models, need to remove volume as well.
- ```bash
+ ```sh
 docker-compose down -v
 docker-compose up
 ```
@@ -18,7 +18,7 @@ For documentation, visit: http://localhost:8000/swagger/
 
 ## Get started without using Docker container
 1. Initial requirements: install Django Rest framework and Swagger documentation
- ```python
+ ```sh
 pip install djangorestframework
 pip install setuptools
 pip install drf-yasg
